@@ -4,7 +4,7 @@ audio_song/
 audio_speech/
 video_song/
 video_speech/
-processed/audio/
+processed/
 .idea/
 
 # Byte-compiled / optimized / DLL files
