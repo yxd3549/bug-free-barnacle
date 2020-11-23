@@ -41,13 +41,14 @@ def generate_landmarks(image, rect):
     return coords
 
 
-def visualize_landmarks(image_path, output_path=None):
+def visualize_landmarks(image_path, rect=None, display=True, output_path=None):
 
     # load image from disk
     image = cv2.imread(image_path)
 
     # detect face and landmarks
-    rect = detect_face(image)
+    if (rect is None):
+        rect = detect_face(image)
     shape = generate_landmarks(image, rect)
 
     # add markers to image
@@ -59,5 +60,6 @@ def visualize_landmarks(image_path, output_path=None):
         cv2.imwrite(output_path, image)
     
     # display
-    cv2.imshow("Output", image)
-    cv2.waitKey(0)
+    if (display):
+        cv2.imshow("Output", image)
+        cv2.waitKey(0)
