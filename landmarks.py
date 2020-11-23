@@ -53,7 +53,7 @@ def visualize_landmarks(image_path, rect=None, display=True, output_path=None):
 
     # add markers to image
     for (x, y) in shape:
-            cv2.circle(image, (x, y), 3, (0, 0, 255), -1)
+            cv2.circle(image, (x, y), 3, (0, 255, 0), -1)
 
     # save to disk
     if not (output_path is None):
@@ -63,3 +63,6 @@ def visualize_landmarks(image_path, rect=None, display=True, output_path=None):
     if (display):
         cv2.imshow("Output", image)
         cv2.waitKey(0)
+
+
+visualize_landmarks('01-01-07-01-01-01-01-frame-9.jpg', None, False, '01-01-07-01-01-01-01-frame-9-landmarks.jpg')
