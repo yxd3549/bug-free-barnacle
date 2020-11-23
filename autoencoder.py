@@ -24,7 +24,7 @@ def read_features():
         try:
             audio_data = np.genfromtxt(audio, delimiter=',').flatten()
             landmark_data = np.genfromtxt(masked, delimiter=',').flatten()
-            feature = np.concatenate([landmark_data, audio_data], axis=0).flatten()
+            feature = np.concatenate([landmark_data, audio_data], axis=0)
             if feature.shape[0] != size:
                 continue
 
@@ -36,6 +36,13 @@ def read_features():
     return np.array(features), np.array(labels)
 
 
+def single_features(face_file, audio_file):
+    audio_data = np.genfromtxt(audio_file, delimiter=',').flatten()
+    landmark_data = np.genfromtxt(face_file, delimiter=',').flatten()
+    feature = np.concatenate([landmark_data, audio_data], axis=0)
+    return np.array([feature])
+
+
 if __name__ == '__main__':
     features, labels = read_features()
     print('Labels: ', labels.shape)
@@ -44,10 +51,10 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.15)
 
     input_size = features.shape[1]
-    hidden_size = input_size//2
-    code_size = input_size//4
+    hidden_size = input_size // 2
+    code_size = input_size // 4
     output_size = labels.shape[1]
-    hidden_size_2 = input_size//6
+    hidden_size_2 = input_size // 6
 
     input_features = Input(shape=(input_size,))
     hidden_1 = Dense(hidden_size, activation='relu')(input_features)
@@ -60,3 +67,11 @@ if __name__ == '__main__':
     autoencoder.fit(X_train, y_train, epochs=20, batch_size=1, validation_split=0.1275)
 
     scores = autoencoder.evaluate(X_test, y_test, batch_size=1)
+
+    yeet = single_features("processed/audio/03-01-01-01-01-01-01-6.csv",
+                           'processed/landmarks/masked/01-01-01-01-01-01-01-frame-6.csv')
+
+    output_landmarks = autoencoder.predict(yeet)[0]
+    coordinates = output_landmarks.reshape((68, 2))
+
+    print(coordinates)

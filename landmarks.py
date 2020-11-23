@@ -63,6 +63,3 @@ def visualize_landmarks(image_path, rect=None, display=True, output_path=None):
     if (display):
         cv2.imshow("Output", image)
         cv2.waitKey(0)
-
-
-visualize_landmarks('01-01-07-01-01-01-01-frame-9.jpg', None, False, '01-01-07-01-01-01-01-frame-9-landmarks.jpg')
