@@ -6,6 +6,7 @@ video_song/
 video_speech/
 processed/
 .idea/
+temp.jpg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
